@@ -3,20 +3,33 @@
 
 var RoomsView = {
 
-  $button: $('#rooms button'),
-  $select: $('#rooms select'),
+  $button: $('#rooms button'), //button
+  $select: $('#rooms select'), //dropdown menu
 
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+    //add all rooms to room select dropdown
+    RoomsView.render()
   },
 
   render: function() {
+
     // TODO: Render out the list of rooms.
+    //for each item in the rooms list,
+    //add to dropdown menu
+    RoomsView.$select.html('');
+
+  Rooms._data.forEach(function(room) {
+    // RoomsView.$select.append($(`<div class="room">${room}</div>`))
+    RoomsView.$select.append(`<option value=${room}>${room}</option>`)
+    //RoomsView.$select.hide();
+  });
   },
 
   renderRoom: function(roomname) {
     // TODO: Render out a single room.
+
   },
 
   handleChange: function(event) {

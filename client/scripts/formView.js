@@ -16,13 +16,37 @@ var FormView = {
 
     // TODO: Currently, this is all handleSubmit does.
     // Make this function actually send a message to the Parse API.
-  
-    console.log('click!');
+    let $submit = $('input.submit');
+
+    currMSG = {};
+    currUserName = App.username;
+    currText = $('#message').val();
+    currMSG.username = currUserName;
+    currMSG.text = currText;
+    currMSG.roomname = $('select').val()
+
+    //create(message, successCB, errCB)
+    //msg will be what we type
+    // Parse.create()
+    Parse.create(currMSG);
+
   },
 
   setStatus: function(active) {
     var status = active ? 'true' : null;
     FormView.$form.find('input[type=submit]').attr('disabled', status);
+  },
+
+
+  dropdownChange: function(data) {
+    $('select').change(function(e) {
+      console.warn('SELECT SWAP')
+        //updates global message list
+        $('#chats').html('');
+        Messages.updateMessages(data)
+
+        MessagesView.render($('select').val())
+    })
   }
 
 };

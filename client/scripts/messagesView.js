@@ -8,10 +8,19 @@ var MessagesView = {
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+
+    MessagesView.render();
+
   },
 
   render: function() {
     // TODO: Render _all_ the messages.
+    Messages._data.forEach(function(msg) {
+      if (msg.currRoom === $('select').val()) {
+        $('#chats').append(MessageView.render(msg))
+      }
+    });
+
   },
 
   renderMessage: function(message) {

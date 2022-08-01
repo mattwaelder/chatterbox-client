@@ -18,18 +18,37 @@ var App = {
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
-
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
   },
 
-  fetch: function(callback = ()=>{}) {
+
+  //(success, fail)
+
+  //SETTING ANONYMOUS ARROW FN AS DEFAULT PARAM
+  fetch: function(callback = ()=>{
+    //IF USER DOESNT SAY WHAT CALLBACK IS, IT DEFAULTS
+    //TO AN EMPTY FN (LINE 20)
+    //we are unsure why the body is empty
+  }) {
+
     Parse.readAll((data) => {
       // examine the response from the server request:
       console.log(data);
 
       // TODO: Use the data to update Messages and Rooms
-      // and re-render the corresponding views.
+
+      //call functions that populates local messages.js and local rooms.js storage with recieved data
+      Messages.updateMessages(data);
+      Rooms.updateRooms(data);
+
+      //update views
+      RoomsView.initialize();
+      MessagesView.initialize();
+      FormView.dropdownChange(data);
+
+      //invoke callback
+      callback(); //? run upon success
     });
   },
 
